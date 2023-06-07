@@ -1,0 +1,42 @@
+from random import randint as ri, shuffle, choice
+import time, winsound, os
+
+stop_key = 'start'
+resting_time, circle = 150, 0
+
+exs_n_steps = {'Push-Ups': [5, 12],
+                     'ABS': [8, 16],
+                     'Squats': [7, 15],
+                     'Plank': [30, 60],
+                     'Triceps': [6, 15],
+                     'Lunges': [7, 12]}
+
+keys = list(exs_n_steps.keys())
+shuffle(keys)
+
+while circle != len(exs_n_steps):
+    for key in keys:
+        print(f"{key}: {ri(*exs_n_steps[key])}")
+        circle += 1
+
+        if circle == len(exs_n_steps):
+            print()
+
+            stop_key = input("Start over? Y/N: \n")
+
+            if stop_key.upper() in 'YН':
+                print(f"Rest time {resting_time // 60} minutes and {resting_time % 60} seconds")
+                time.sleep(resting_time)
+                winsound.Beep(1000, 1000)
+
+                # resting_time += 30
+                shuffle(keys)
+                circle = 0
+                os.system('cls')
+
+                print()
+                continue
+            else:
+                break 
+
+        stop_key = input('..\n')
